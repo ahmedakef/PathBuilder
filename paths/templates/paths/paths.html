@@ -1,0 +1,30 @@
+{% extends 'paths/base.html' %}
+{% block title %}All Paths{% endblock %}
+{% block songs_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+
+    <div class="row">
+      {% for path in paths %}
+
+      <div class="col-md-4">
+        <div class="card" style="width: 20rem;">
+          <img class="card-img-top" src="https://dummyimage.com/350x200/969196/fff.png" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">{{path.name}}</h4>
+            <p class="card-text">{{path.description}}</p>
+            <a href="{% url 'paths:show_path' path.id %}" class="btn btn-primary">Go to path</a>
+          </div>
+        </div>
+
+      </div>
+
+      {% endfor %}
+
+
+    </div>
+
+</div>
+{% endblock %}

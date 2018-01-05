@@ -1,0 +1,21 @@
+{% extends 'paths/base.html' %}
+{% block title %}All Songs{% endblock %}
+{% block songs_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+
+    <div class="row">
+
+        <div class="col-sm-12">
+          <h3>{{path.name}} Path</h3>
+          {% include 'paths/courses_tree.html' %}
+
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

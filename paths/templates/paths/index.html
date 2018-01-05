@@ -1,0 +1,47 @@
+{% extends 'paths/base.html' %}
+{% block title %}All Songs{% endblock %}
+{% block songs_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                      
+                        <thead>
+                            <tr>
+                                <th>Course name</th>
+                                <th>Course description</th>
+                                <th>depend_on</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for course in courses %}
+                                <tr>
+                                    <td>{{ course.name }}</td>
+                                    <td>{{ course.description }}</td>
+                                    <td>
+                                      {% for course_d in course.depend_on.all %}
+                                        {{ course_d }}
+                                      {% endfor %}
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
