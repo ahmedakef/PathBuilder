@@ -20,12 +20,16 @@ class Course(models.Model):
     def __str__(self):
         return self.name
 
-
 class Path(models.Model):
     name = models.CharField(max_length=200, blank=False)
     description = models.CharField(max_length=500)
     base = models.OneToOneField(Course, on_delete=models.CASCADE, related_name="base",blank=True,null=True)
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+    
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('paths.views.show_path',args=[str(self.id)])
 
     def __str__(self):
         return self.name

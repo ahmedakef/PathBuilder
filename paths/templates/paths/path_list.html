@@ -7,7 +7,7 @@
 
     <h1>Most popular paths : </h1>
     <div class="row">
-      {% for path in paths %}
+      {% for path in path_list %}
 
       <div class="col-md-4">
         <div class="card" style="width: 20rem;">
@@ -15,7 +15,7 @@
           <div class="card-body">
             <h4 class="card-title">{{path.name}}</h4>
             <p class="card-text">{{path.description}}</p>
-            <a href="{% url 'paths:show_path' path.id %}" class="btn btn-primary">Go to path</a>
+            <a href="{{ path.get_absolute_url }}" class="btn btn-primary">Go to path</a>
           </div>
         </div>
 

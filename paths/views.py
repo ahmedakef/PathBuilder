@@ -7,24 +7,40 @@ from .models import Course,Path
 from .forms import CourseForm,PathForm
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
+from django.views import generic
 
 #import pdb
 
 # Create your views here.
-def index(request):
-    paths = Path.objects.all()
-    return render(request, 'paths/paths.html', {'paths': paths})
+
+class PathListView(generic.ListView):
+    model = Path
+    paginate_by = 10
+    
+    def get_queryset(self):
+        return Path.objects.all()[:5]
+    
+
+
+
 
 def my_paths(request):
     paths = Path.objects.filter(creator=request.user)
     return render(request, 'paths/paths.html', {'paths': paths})
 
 
-def courses(request):
+class PathDetailView(generic.ListView):
+    model = Path
+    
 
-    courses = Course.objects.all()
+    
+    def get_context_data(self,**kwargs):
+        # Call the base implementation first to get the context
+        context = super(PathDetailView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['courses'] = base
+        return context
 
-    return render(request, 'paths/index.html', {'courses': courses})
 
 
 def show_path(request,path_id):
@@ -35,6 +51,15 @@ def show_path(request,path_id):
         'courses': base,
         'path': path
     }
+
+
+def courses(request):
+
+    courses = Course.objects.all()
+
+    return render(request, 'paths/index.html', {'courses': courses})
+
+
 
     return render(request, 'paths/show_path.html', context)
 
