@@ -29,7 +29,7 @@ class Path(models.Model):
     
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('paths.views.show_path',args=[str(self.id)])
+        return reverse('paths:show_path',args=[str(self.id)])
 
     def __str__(self):
         return self.name

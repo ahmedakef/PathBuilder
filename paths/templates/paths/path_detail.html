@@ -1,4 +1,4 @@
-{% extends 'paths/base.html' %}
+{% extends 'base.html' %}
 {% block title %}All Songs{% endblock %}
 {% block songs_active %}active{% endblock %}
 
@@ -11,8 +11,11 @@
         <div class="col-sm-12">
           <h3>{{path.name}} Path</h3>
           {% include 'paths/courses_tree.html' %}
-
+          <p>Created By : <a href="{{path.creator.get_absolute_url}}">{{path.creator}}</a></p>
           <a href="{% url 'paths:edit_path' path.id %}" class="btn btn-primary">Edit</a>
+          {% if user == path.creator %}
+            <a href="{% url 'paths:delete_path' path.id %}" class="btn btn-danger">Delete</a>
+          {% endif %}
         </div>
 
     </div>

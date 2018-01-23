@@ -10,8 +10,4 @@ class CourseForm(forms.ModelForm):
         model = Course
         fields = ['name', 'description','depend_on','path']
 
-class PathForm(forms.ModelForm):
 
-    class Meta:
-        model = Path
-        fields = ['name', 'description']

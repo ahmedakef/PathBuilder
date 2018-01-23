@@ -21,8 +21,14 @@ urlpatterns = [
         url(r'^admin/', admin.site.urls),
 ]
 
-
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
 #Add Django site authentication urls (for login, logout, password management)
 urlpatterns += [
     url(r'^accounts/', include('django.contrib.auth.urls')),
+    url('^register/', CreateView.as_view(
+            template_name='forms.html',
+            form_class=UserCreationForm,
+            success_url='/paths'
+    )),
 ]
