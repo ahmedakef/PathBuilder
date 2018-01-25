@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.urls import reverse_lazy,reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 #import pdb
 
@@ -66,11 +67,11 @@ class PathCreate(generic.CreateView):
 
 
 
-class PathUpdate(generic.UpdateView):
+class PathUpdate(LoginRequiredMixin,generic.UpdateView):
     model = Path
     fields = ['name', 'description']
 
-class PathDelete(generic.DeleteView):
+class PathDelete(LoginRequiredMixin,generic.DeleteView):
     model = Path
     success_url = reverse_lazy('paths:index')
 

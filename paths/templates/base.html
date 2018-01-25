@@ -55,7 +55,11 @@
                     </a>
                 </li>
                 {% if user.is_authenticated %}
-                    <li>User: {{ user.get_username }}</li>
+                    <li>
+                        <a href="{{ user.get_absolute_url }}">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Hi, {{ user.get_username }}
+                        </a>
+                    </li>
                     <li><a href="{% url 'logout'%}?next={{request.path}}">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
                     </a></li>   

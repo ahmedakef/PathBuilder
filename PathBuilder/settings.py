@@ -103,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LOGIN_URL = '/paths/login'
+LOGIN_URL = '/accounts/login'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -132,3 +132,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda o: "/paths/author/%s/" % o.pk,
 }
+

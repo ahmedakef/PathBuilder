@@ -16,5 +16,5 @@ urlpatterns = [
 
     url(r'^courses/$', views.CourseListView.as_view(), name='courses'),
     url(r'^add_course/$', views.add_course, name='add_course'),
-    url('^', include('django.contrib.auth.urls')),
+    #url('^', include('django.contrib.auth.urls')),
 ]
