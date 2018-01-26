@@ -26,12 +26,13 @@ from paths.forms import UserCreateForm
 from django.views.generic.edit import CreateView
 
 
+from .views import Register,ActivateAccount,send_activation_keyView
+
+
 #Add Django site authentication urls (for login, logout, password management)
 urlpatterns += [
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url('^register/', CreateView.as_view(
-            template_name='forms.html',
-            form_class=UserCreateForm,
-            success_url='/paths'
-    ),name='register'),
+    url(r'^accounts/register/$', Register.as_view(),name='register'),
+    url(r'^accounts/register/activate/$', ActivateAccount,name='activate'),
+    url(r'^accounts/SendActivationKey/$', send_activation_keyView,name='SendActivationKeyView'),
 ]

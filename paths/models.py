@@ -7,7 +7,19 @@ from django.contrib.auth.models import User
 
 
 class Author(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    ## required to associate Author model with User model (Important)
+    user = models.OneToOneField(User, null=True, blank=True,on_delete=models.CASCADE)
+
+    ## additional fields
+    phone = models.IntegerField(blank=True, default=1)    
+    activation_key = models.CharField(max_length=255, default=1)
+    email_validated = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
+    def get_absolute_url(self):
+        return reverse('author_paths', args=[self.user.pk])
 
 
 class Course(models.Model):

@@ -74,7 +74,37 @@
 
     </div>
 </nav>
+
+{% if not user.author.email_validated and user.is_authenticated %}
+
+<div class="alert alert-danger" role="alert">
+    your email is not verified 
+    <a href="{% url 'SendActivationKeyView'%}">
+        click here to send activation link
+    </a>
+</div>
+
+{% endif %}
+
 {% block body %}
+{% endblock %}
+
+
+
+{% block messages %}
+    {% if messages %}
+    <header>
+        <div class="alert alert-info" role="alert">
+            
+            <ul class="list-group">
+                {% for message in messages %}
+                <li{% if message.tags %} class="list-group-item"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+                       
+        </div>
+    </header>
+    {% endif %} 
 {% endblock %}
 
 {% block pagination %}

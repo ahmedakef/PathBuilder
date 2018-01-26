@@ -28,8 +28,8 @@ class UserCreateForm(UserCreationForm):
         Validate that the supplied email address is unique.
         """
 
-        email = self.cleaned_data['email'].lower()
-        r = User.objects.filter(email=email)
+        email = self.cleaned_data['email']
+        r = User.objects.filter(email__iexact=email)
         if r.count():
             raise  ValidationError("Email already exists")
         return email
@@ -38,7 +38,7 @@ class UserCreateForm(UserCreationForm):
 
     def save(self,commit=True):
         user = super(UserCreateForm,self).save(commit=False)
-        user.email = self.cleaned_data["email"]
+        
         if commit:
             user.save()
         return user
