@@ -1,5 +1,5 @@
 from django.views import generic
-from paths.forms import CourseForm ,UserCreateForm
+from paths.forms import UserCreateForm
 from paths.models import Author
 from django.views import View
 from django.conf import settings    

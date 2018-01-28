@@ -4,11 +4,6 @@ from django.contrib.auth.models import User
 from .models import Course,Path
 
 
-class CourseForm(forms.ModelForm):
-
-    class Meta:
-        model = Course
-        fields = ['name', 'description','depend_on','path']
 
 
 from django.contrib.auth.models import User
@@ -36,9 +31,9 @@ class UserCreateForm(UserCreationForm):
 
 
 
-    def save(self,commit=True):
-        user = super(UserCreateForm,self).save(commit=False)
-        
-        if commit:
-            user.save()
-        return user
+    #def save(self,commit=True):
+    #    user = super(UserCreateForm,self).save(commit=False)
+    #    
+    #    if commit:
+    #        user.save()
+    #    return user

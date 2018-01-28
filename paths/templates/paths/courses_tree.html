@@ -1,7 +1,7 @@
 <ul>
 
   {% for course in courses %}
-    <li><a href="">{{ course.name }}</a></li>
+    <li><a href="{{ course.get_absolute_url }}">{{ course.name }}</a></li>
     {% if course.above.all %}
       {% with course.above.all as courses %}
         {% include 'paths/courses_tree.html' %}

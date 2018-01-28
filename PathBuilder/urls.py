@@ -16,6 +16,10 @@ Including another URLconf
 from django.conf.urls import include,url
 from django.contrib import admin
 
+from django.conf.urls.static import static
+from django.conf import settings
+
+
 urlpatterns = [
         url(r'^paths/', include('paths.urls')),
         url(r'^admin/', admin.site.urls),
@@ -36,3 +40,8 @@ urlpatterns += [
     url(r'^accounts/register/activate/$', ActivateAccount,name='activate'),
     url(r'^accounts/SendActivationKey/$', send_activation_keyView,name='SendActivationKeyView'),
 ]
+
+#urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
