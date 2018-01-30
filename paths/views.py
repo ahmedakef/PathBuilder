@@ -36,8 +36,8 @@ class my_PathsListView(LoginRequiredMixin,PathListView):
 class AuthorPathsListView(PathListView):
 
     def get_queryset(self):
-        
-       return Path.objects.filter(creator=self.kwargs['pk'])
+       author_id = Author.objects.get(slug=self.kwargs['slug']).user.id
+       return Path.objects.filter(creator=author_id)
 
 
 
@@ -100,13 +100,20 @@ class CourseDetailView(generic.DetailView):
 class my_CoursesListView(LoginRequiredMixin,CourseListView):
     
     def get_queryset(self):
-       return Path.objects.filter(creator=self.request.user)
+       return Course.objects.filter(creator=self.request.user)
+
+class AuthorCoursesListView(LoginRequiredMixin,CourseListView):
+    
+    def get_queryset(self):
+       author_id = Author.objects.get(slug=self.kwargs['slug']).user.id
+       return Course.objects.filter(creator=author_id)
+
 
 
 #pdb.set_trace()
 class CourseCreate(LoginRequiredMixin,generic.CreateView):
     model = Course
-    fields = ['name', 'description','depend_on','path','photo']
+    fields = ['name', 'slug','description','depend_on','path','photo']
 
     def form_valid(self,form):
         form.instance.creator = self.request.user

@@ -2,7 +2,7 @@
 {% block title %}All Songs{% endblock %}
 {% block songs_active %}active{% endblock %}
 
-{% block body %}
+{% block content %}
 <div class="container-fluid songs-container">
 
 
@@ -24,11 +24,11 @@
                         <tbody>
                             {% for course in course_list %}
                                 <tr>
-                                    <td>{{ course.name }}</td>
+                                    <td><li><a href="{{ course.get_absolute_url }}">{{ course.name }}</a></li></td>
                                     <td>{{ course.description }}</td>
                                     <td>
                                       {% for course_d in course.depend_on.all %}
-                                        {{ course_d }}
+                                        {{ course_d }}, 
                                       {% endfor %}
                                     </td>
 

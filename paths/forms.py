@@ -29,6 +29,7 @@ class UserCreateForm(UserCreationForm):
             raise  ValidationError("Email already exists")
         return email
 
+    
 
 
     #def save(self,commit=True):

@@ -1,29 +1,34 @@
 {% extends 'base.html' %}
-{% block title %}All Songs{% endblock %}
+{% block title %}{{course.name}} | {{ block.super }}{% endblock %}
 {% block songs_active %}active{% endblock %}
 
-{% block body %}
+{% block content %}
 <div class="container-fluid songs-container">
 
 
     <div class="row">
 
         <div class="col-sm-12">
-            <img class="img-responsive" src="{{ couse.photo.url }}" alt="Card image cap" width="350" height="200">
+            <img class="" src="{{ course.photo.url }}" alt="Card image cap" width="350" height="200">
           <h3>{{course.name}} Course</h3>
+          <h4>Description : </h4> <p>{{ course.description }}</p> 
           Path : <a href="{{ course.path.get_absolute_url }}" class="">{{ course.path.name }}</a>
-          <h3>Depend on :</h3>
-          <ul>
-              {% for i_course in course.above.all %}
-                <li><a href="{{ i_course.get_absolute_url }}">{{ i_course.name }}</a></li>
-              {% endfor %}
+          {% if course.depend_on.all %}
+            <h3>Depend on :</h3>
+            <ul>
+                {% for i_course in course.depend_on.all %}
+                    <li><a href="{{ i_course.get_absolute_url }}">{{ i_course.name }}</a></li>
+                {% endfor %}
 
-          </ul>
+            </ul>
+          {% else %}
+          <p>It depends on nothing you can take it now </p>
+          {% endif %}
           {% if user.is_authenticated %}
-            <a href="{% url 'paths:edit_course' course.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'paths:edit_course' course.slug %}" class="btn btn-primary">Edit</a>
           {% endif %}
           {% if user == path.creator %}
-            <a href="{% url 'paths:delete_couse' course.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'paths:delete_couse' course.slug %}" class="btn btn-danger">Delete</a>
           {% endif %}
           
           <p>Created By : <a href="{{course.creator.get_absolute_url}}">{{course.creator}}</a></p>

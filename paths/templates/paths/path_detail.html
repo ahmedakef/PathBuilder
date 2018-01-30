@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-{% block title %}All Songs{% endblock %}
+{% block title %}{{path.name}} | {{ block.super }}{% endblock %}
 {% block songs_active %}active{% endblock %}
 
-{% block body %}
+{% block content %}
 <div class="container-fluid songs-container">
 
 
@@ -14,10 +14,10 @@
           {% include 'paths/courses_tree.html' %}
           <p>Created By : <a href="{{path.creator.get_absolute_url}}">{{path.creator}}</a></p>
           {% if user.is_authenticated %}
-            <a href="{% url 'paths:edit_path' path.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'paths:edit_path' path.slug %}" class="btn btn-primary">Edit</a>
           {% endif %}
           {% if user == path.creator %}
-            <a href="{% url 'paths:delete_path' path.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'paths:delete_path' path.slug %}" class="btn btn-danger">Delete</a>
           {% endif %}
         </div>
 
