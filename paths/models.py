@@ -16,7 +16,7 @@ def get_directory(instance, filename):
 class Author(models.Model):
     ## required to associate Author model with User model (Important)
     user = models.OneToOneField(User, null=True, blank=True,on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=200 ,unique=True)
+    slug = models.SlugField(max_length=200 ,unique=True,null=False,blank=False)
 
     ## additional fields
     phone = models.IntegerField(blank=True, default=1)    
@@ -36,9 +36,8 @@ class Author(models.Model):
 dummyimage = 'dummyimage.png'
 
 class Course(models.Model):
-    prepopulated_fields = {"slug": ("name",)}
     name = models.CharField(max_length=200, blank=False)
-    slug = models.SlugField(max_length=200 , unique=True)
+    slug = models.SlugField(max_length=200 , unique=True,null=False,blank=False)
     description = models.CharField(max_length=500)
     depend_on = models.ManyToManyField('self',related_name="above", blank=True,symmetrical=False)
     path = models.ForeignKey('Path', on_delete=models.CASCADE)
@@ -64,10 +63,11 @@ class Course(models.Model):
         return self.name
 
 
+from django.utils.text import slugify
 
 class Path(models.Model):
     name = models.CharField(max_length=200, blank=False)
-    slug = models.SlugField(max_length=200 , unique=True)
+    slug = models.SlugField(max_length=200 , unique=True,null=False,blank=False)
 
     description = models.CharField(max_length=500)
     base = models.OneToOneField(Course, on_delete=models.CASCADE, related_name="base",blank=True,null=True)
@@ -79,6 +79,19 @@ class Path(models.Model):
     def save(self, *args, **kwargs):
         if self.photo == '':
             self.photo = dummyimage
+        
+        created = self.pk is None
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+        if created:
+            baseCourse_params = {
+                'name' : "base {0}".format(self.name),
+                'slug' : self.slug+"-Base",
+                'description' : "just hidden base course to build upon for {0}".format(self.name),
+                'path' : self,
+                'creator' : self.creator
+            }
+            base_Course = Course.objects.create(**baseCourse_params)
+            self.base = base_Course
         super().save(*args, **kwargs)  # Call the "real" save() method.
 
     def get_absolute_url(self):

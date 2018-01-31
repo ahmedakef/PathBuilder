@@ -3,12 +3,11 @@ from django.contrib.auth.models import User
 
 from .models import Course,Path
 
-
-
-
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
+
+
 
 class UserCreateForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -38,3 +37,4 @@ class UserCreateForm(UserCreationForm):
     #    if commit:
     #        user.save()
     #    return user
+

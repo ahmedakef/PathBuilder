@@ -52,14 +52,14 @@ class PathDetailView(generic.DetailView):
         # Call the base implementation first to get the context
         context = super(PathDetailView, self).get_context_data(**kwargs)
         # Create any data and add it to the context
-        context['courses'] = [self.get_object().base]
+        context['courses'] = self.get_object().base.above.all()
         return context
 
 
 #pdb.set_trace()
 class PathCreate(LoginRequiredMixin,generic.CreateView):
     model = Path
-    fields = ['name', 'description','photo']
+    fields = ['name', 'slug', 'description','photo']
 
     def form_valid(self,form):
         form.instance.creator = self.request.user
