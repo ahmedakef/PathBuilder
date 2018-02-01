@@ -53,6 +53,12 @@ class Course(models.Model):
         if self.photo == '':
             self.photo = dummyimage
         super().save(*args, **kwargs)  # Call the "real" save() method.
+        if not self.depend_on.exists() :
+            print(self.depend_on.all())
+            self.depend_on.add(self.path.base)
+        #    print(self.path.base)
+            print(self.depend_on.all())
+        #super().save(*args, **kwargs)  # Call the "real" save() method.
 
 
 
