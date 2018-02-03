@@ -18,11 +18,12 @@ from django.contrib import admin
 
 from django.conf.urls.static import static
 from django.conf import settings
+from django.urls import path
 
 
 urlpatterns = [
-        url(r'^paths/', include('paths.urls')),
-        url(r'^admin/', admin.site.urls),
+        path('paths/', include('paths.urls')),
+        path('admin/', admin.site.urls),
 ]
 
 
@@ -35,10 +36,10 @@ from .views import Register,ActivateAccount,send_activation_keyView
 
 #Add Django site authentication urls (for login, logout, password management)
 urlpatterns += [
-    url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^accounts/register/$', Register.as_view(),name='register'),
-    url(r'^accounts/register/activate/$', ActivateAccount,name='activate'),
-    url(r'^accounts/SendActivationKey/$', send_activation_keyView,name='SendActivationKeyView'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register/', Register.as_view(),name='register'),
+    path('accounts/register/activate/', ActivateAccount,name='activate'),
+    path('accounts/SendActivationKey/', send_activation_keyView,name='SendActivationKeyView'),
 ]
 
 #urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

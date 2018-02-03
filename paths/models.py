@@ -16,7 +16,6 @@ def get_directory(instance, filename):
 class Author(models.Model):
     ## required to associate Author model with User model (Important)
     user = models.OneToOneField(User, null=True, blank=True,on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=200 ,unique=True,null=False,blank=False)
 
     ## additional fields
     phone = models.IntegerField(blank=True, default=1)    
@@ -53,12 +52,7 @@ class Course(models.Model):
         if self.photo == '':
             self.photo = dummyimage
         super().save(*args, **kwargs)  # Call the "real" save() method.
-        if not self.depend_on.exists() :
-            print(self.depend_on.all())
-            self.depend_on.add(self.path.base)
-        #    print(self.path.base)
-            print(self.depend_on.all())
-        #super().save(*args, **kwargs)  # Call the "real" save() method.
+
 
 
 

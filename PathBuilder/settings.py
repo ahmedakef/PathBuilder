@@ -131,7 +131,7 @@ LOGIN_REDIRECT_URL = '/paths'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ABSOLUTE_URL_OVERRIDES = {
-    'auth.user': lambda o: "/paths/author/%s/" % o.author.slug,
+    'auth.user': lambda o: "/paths/author/%s/" % o.username,
 }
 
 

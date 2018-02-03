@@ -5,7 +5,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from .models import Course,Path,Author
 from django.contrib.auth.models import User
-from .forms import UserCreateForm
+from .forms import UserCreateForm,CourseForm
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 from django.views import generic
@@ -36,8 +36,7 @@ class my_PathsListView(LoginRequiredMixin,PathListView):
 class AuthorPathsListView(PathListView):
 
     def get_queryset(self):
-       author_id = Author.objects.get(slug=self.kwargs['slug']).user.id
-       return Path.objects.filter(creator=author_id)
+       return Path.objects.filter(creator=User.objects.get(username=self.kwargs['slug']))
 
 
 
@@ -105,15 +104,15 @@ class my_CoursesListView(LoginRequiredMixin,CourseListView):
 class AuthorCoursesListView(LoginRequiredMixin,CourseListView):
     
     def get_queryset(self):
-       author_id = Author.objects.get(slug=self.kwargs['slug']).user.id
-       return Course.objects.filter(creator=author_id)
+       return Course.objects.filter(creator=User.objects.get(username=self.kwargs['slug']))
 
 
 
 #pdb.set_trace()
 class CourseCreate(LoginRequiredMixin,generic.CreateView):
     model = Course
-    fields = ['name', 'slug','description','depend_on','path','photo']
+    form_class = CourseForm
+    #fields = ['name', 'slug','description','depend_on','path','photo']
 
     def form_valid(self,form):
         form.instance.creator = self.request.user
