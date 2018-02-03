@@ -1,4 +1,3 @@
-from django.conf.urls import include,url
 from django.conf.urls.static import static
 from django.conf import settings
 from . import views
@@ -9,11 +8,11 @@ app_name = 'paths'
 
 urlpatterns = [
     path('', views.PathListView.as_view(), name='index'),
-    path('<slug:slug>/', views.PathDetailView.as_view(), name='show_path'),
     path('add_path/', views.PathCreate.as_view(), name='add_path'),
+    path('my_paths/', views.my_PathsListView.as_view(), name='my_paths'),
+    path('<slug:slug>/', views.PathDetailView.as_view(), name='show_path'),
     path('<slug:slug>/edit/', views.PathUpdate.as_view(), name='edit_path'),
     path('<slug:slug>/delete/', views.PathDelete.as_view(), name='delete_path'),
-    path('my_paths/', views.my_PathsListView.as_view(), name='my_paths'),
     path('author/<slug:slug>/', views.AuthorPathsListView.as_view(), name='author_paths'),
 
     path('courses/', views.CourseListView.as_view(), name='courses'),

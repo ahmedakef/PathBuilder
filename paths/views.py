@@ -112,7 +112,6 @@ class AuthorCoursesListView(LoginRequiredMixin,CourseListView):
 class CourseCreate(LoginRequiredMixin,generic.CreateView):
     model = Course
     form_class = CourseForm
-    #fields = ['name', 'slug','description','depend_on','path','photo']
 
     def form_valid(self,form):
         form.instance.creator = self.request.user
@@ -122,7 +121,7 @@ class CourseCreate(LoginRequiredMixin,generic.CreateView):
 
 class CourseUpdate(LoginRequiredMixin,generic.UpdateView):
     model = Course
-    fields = ['name', 'description','depend_on','path','photo']
+    form_class = CourseForm
 
 class CourseDelete(UserPassesTestMixin,generic.DeleteView):
     def test_func(self):
