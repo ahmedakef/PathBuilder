@@ -57,9 +57,3 @@ class CourseForm(ModelForm):
 
         return depend_on
 
-
-class CourseCreateForPathForm(CourseForm):
-    class Meta:
-        model = Course
-        fields = ['name', 'slug','description','depend_on','photo']
-
