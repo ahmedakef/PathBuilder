@@ -21,8 +21,11 @@ class Author(models.Model):
     phone = models.IntegerField(blank=True, default=1)    
     activation_key = models.CharField(max_length=255, default=1)
     email_validated = models.BooleanField(default=False)
-
+    access_counter = models.IntegerField(default=0, verbose_name="Access Counts")
     
+    class Meta:
+        ordering = ["-access_counter"]
+
 
     def __str__(self):
         return self.user.username
@@ -44,9 +47,11 @@ class Course(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     photo = models.ImageField(default= dummyimage ,blank= True,upload_to=get_directory)
+    access_counter = models.IntegerField(default=0, verbose_name="Access Counts")
 
     class Meta:
         permissions = (("can_mark_returned", "Set book as returned"),)  
+        ordering = ["-access_counter"]
 
     def save(self, *args, **kwargs):
         if self.photo == '':
@@ -75,6 +80,8 @@ class Path(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     photo = models.ImageField(default= dummyimage ,blank= True,upload_to=get_directory)
+    access_counter = models.IntegerField(default=0, verbose_name="Access Counts")
+
 
     def save(self, *args, **kwargs):
         if self.photo == '':
@@ -93,6 +100,12 @@ class Path(models.Model):
             base_Course = Course.objects.create(**baseCourse_params)
             self.base = base_Course
         super().save(*args, **kwargs)  # Call the "real" save() method.
+
+    
+    class Meta:
+        ordering = ["-access_counter"]
+
+
 
     def get_absolute_url(self):
         return reverse('paths:show_path',args=[str(self.slug)])

@@ -29,11 +29,25 @@ class PathListView(generic.ListView):
     
 
 class my_PathsListView(LoginRequiredMixin,PathListView):
-    
+    def get_context_data(self,**kwargs):
+        # edit access counter of the object 
+        object = Author.objects.get(user=self.request.user)
+        object.access_counter +=1
+        object.save()
+        # Call the base implementation first to get the context
+        return  super().get_context_data(**kwargs)
+
     def get_queryset(self):
        return Path.objects.filter(creator=self.request.user)
 
 class AuthorPathsListView(PathListView):
+    def get_context_data(self,**kwargs):
+        # edit access counter of the object 
+        object = User.objects.get(username=self.kwargs['slug']).author
+        object.access_counter +=1
+        object.save()
+        # Call the base implementation first to get the context
+        return  super().get_context_data(**kwargs)
 
     def get_queryset(self):
        return Path.objects.filter(creator=User.objects.get(username=self.kwargs['slug']))
@@ -45,11 +59,15 @@ class AuthorPathsListView(PathListView):
 
 class PathDetailView(generic.DetailView):
     model = Path
-    
+
     
     def get_context_data(self,**kwargs):
+        # edit access counter of the object 
+        object = self.get_object()
+        object.access_counter +=1
+        object.save()
         # Call the base implementation first to get the context
-        context = super(PathDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         # Create any data and add it to the context
         context['courses'] = self.get_object().base.above.all()
         return context
@@ -78,6 +96,10 @@ class PathDelete(UserPassesTestMixin,generic.DeleteView):
     success_url = reverse_lazy('paths:index')
 
 
+
+
+
+
 def add_course(request):
     form = CourseForm(request.POST or None)
     if form.is_valid():
@@ -96,13 +118,37 @@ class CourseListView(generic.ListView):
 class CourseDetailView(generic.DetailView):
     model = Course
     
+    def get_context_data(self,**kwargs):
+        # edit access counter of the object 
+        object = self.get_object()
+        object.access_counter +=1
+        object.save()
+        # Call the base implementation first to get the context
+        return  super().get_context_data(**kwargs)
+
+
 class my_CoursesListView(LoginRequiredMixin,CourseListView):
-    
+    def get_context_data(self,**kwargs):
+        # edit access counter of the object 
+        object = Author.objects.get(user=self.request.user)
+        object.access_counter +=1
+        object.save()
+        # Call the base implementation first to get the context
+        return  super().get_context_data(**kwargs)
+
     def get_queryset(self):
        return Course.objects.filter(creator=self.request.user)
 
 class AuthorCoursesListView(LoginRequiredMixin,CourseListView):
-    
+    def get_context_data(self,**kwargs):
+        # edit access counter of the object 
+        object = User.objects.get(username=self.kwargs['slug']).author
+        object.access_counter +=1
+        object.save()
+        # Call the base implementation first to get the context
+        return  super().get_context_data(**kwargs)
+
+
     def get_queryset(self):
        return Course.objects.filter(creator=User.objects.get(username=self.kwargs['slug']))
 
@@ -117,6 +163,15 @@ class CourseCreate(LoginRequiredMixin,generic.CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form)
 
+class CourseCreateForPath(CourseCreate):
+    def get_context_data(self, **kwargs):
+        path = Path.objects.get(slug = self.kwargs['slug'] )
+        # Call the base implementation first to get the context
+        context = super().get_context_data(**kwargs)
+        context['form'].initial['path'] = path
+        context['form'].fields['path'].disabled= True
+        context['form'].fields['depend_on'].queryset = Course.objects.filter(path=path)
+        return context
 
 
 class CourseUpdate(LoginRequiredMixin,generic.UpdateView):

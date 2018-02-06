@@ -5,9 +5,17 @@
 {% block content %}
 <div class="container-fluid songs-container">
 
-
     <div class="row">
-
+      <div class="col-sm-12">
+        <a href="{% url 'paths:course_for_path' path.slug %}" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add course
+        </a>
+        <br>
+        <br>
+      </div>
+    </div>
+    <div class="row">
+        
         <div class="col-sm-12">
             <img class="img-responsive" src="{{ path.photo.url }}" alt="Card image cap" width="350" height="200">
           <h3>{{path.name}} Path</h3>
