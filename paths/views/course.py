@@ -3,6 +3,7 @@ from paths.models import Course,Path,Author
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.urls import reverse_lazy
 from paths.forms import CourseForm
+from django.contrib.auth.models import User
 
 
 class CourseListView(generic.ListView):

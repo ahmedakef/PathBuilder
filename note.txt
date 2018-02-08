@@ -1,0 +1,4 @@
+abstract path contains just the name of courses withoud links and users can inherit from it to add links
+featured paths
+add job positions in the tack and in the end
+connect path to path

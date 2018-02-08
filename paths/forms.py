@@ -22,7 +22,7 @@ class UserCreateForm(UserCreationForm):
         """
         Validate that the supplied email address is unique.
         """
-        print("a77777a")
+        
         email = self.cleaned_data['email']
         r = User.objects.filter(email__iexact=email)
         if r.count():

@@ -31,7 +31,7 @@ class Author(models.Model):
         return self.user.username
 
     def get_absolute_url(self):
-        return reverse('author_paths', args=[self.slug])
+        return reverse('paths:author_paths', args=[self.user.username])
 
 
 
@@ -99,7 +99,7 @@ class Path(models.Model):
             }
             base_Course = Course.objects.create(**baseCourse_params)
             self.base = base_Course
-        super().save(*args, **kwargs)  # Call the "real" save() method.
+            self.save()  # Call the "real" save() method.
 
     
     class Meta:

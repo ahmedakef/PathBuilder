@@ -2,6 +2,7 @@ from django.views import generic
 from paths.models import Course,Path,Author
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 
 
 class PathListView(generic.ListView):
