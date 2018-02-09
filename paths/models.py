@@ -41,6 +41,7 @@ class Course(models.Model):
     name = models.CharField(max_length=200, blank=False)
     slug = models.SlugField(max_length=200 , unique=True,null=False,blank=False)
     description = models.CharField(max_length=500)
+    url = models.URLField(max_length=400,blank=True)
     depend_on = models.ManyToManyField('self',related_name="above", blank=True,symmetrical=False)
     path = models.ForeignKey('Path', on_delete=models.CASCADE)
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)

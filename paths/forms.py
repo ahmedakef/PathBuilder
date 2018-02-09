@@ -44,7 +44,7 @@ class CourseForm(ModelForm):
 
     class Meta:
         model = Course
-        fields = ['name', 'slug','description','path','depend_on','photo']
+        fields = ['name', 'slug','description',"url",'path','depend_on','photo']
 
 
     def clean_depend_on(self):
