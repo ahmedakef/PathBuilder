@@ -19,8 +19,12 @@
         <div class="col-sm-12">
             <img class="img-responsive" src="{{ path.photo.url }}" alt="Card image cap" width="350" height="200">
           <h3>{{path.name}} Path</h3>
-          {% include 'paths/courses_tree.html' %}
-          <p>Created By : <a href="{{path.creator.get_absolute_url}}">{{path.creator}}</a></p>
+          {% if courses %}
+            {% include 'paths/courses_tree.html' %}
+          {% else %}
+            <p>We encourage you to add new courses and contibute with the community</p>
+          {% endif %}
+            <p>Created By : <a href="{{path.creator.get_absolute_url}}">{{path.creator}}</a></p>
           {% if user.is_authenticated %}
             <a href="{% url 'paths:edit_path' path.slug %}" class="btn btn-primary">Edit</a>
           {% endif %}
