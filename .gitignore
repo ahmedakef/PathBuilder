@@ -1,0 +1,8 @@
+*.pyc
+note.txt
+PathBuilder/production-settings.py
+# Text backup files
+*.bak
+
+#Database
+*.sqlite3
