@@ -13,7 +13,8 @@ class Register(generic.CreateView):
 
     form_class = UserCreateForm
     template_name = 'forms.html'
-
+    success_url='/paths'
+    
     def form_valid(self,form):
         # send email verification now
         success_message = 'Account created! Click on the link sent to your email to activate the account'
