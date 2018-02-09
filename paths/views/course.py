@@ -65,7 +65,7 @@ class CourseCreateForPath(CourseCreate):
         # Call the base implementation first to get the context
         context = super().get_context_data(**kwargs)
         context['form'].initial['path'] = path
-        context['form'].fields['path'].disabled= True
+        context['form'].fields['path'].widget.attrs['readonly'] = True
         context['form'].fields['depend_on'].queryset = Course.objects.filter(path=path)
         return context
 
