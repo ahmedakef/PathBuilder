@@ -20,10 +20,14 @@ from django.conf import settings
 from django.urls import path,include
 
 
+from paths.views.path import PathListView
+
 urlpatterns = [
         path('paths/', include('paths.urls')),
         path('admin/', admin.site.urls),
+        path('', PathListView.as_view()),
 ]
+
 
 
 from paths.forms import UserCreateForm
