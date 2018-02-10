@@ -10,6 +10,9 @@
         <div class="col-sm-12 col-md-7">
             <div class="panel panel-default">
                 <div class="panel-body">
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
                     {% block form_content %}
                         <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
