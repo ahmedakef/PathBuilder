@@ -10,10 +10,10 @@
 
         <div class="col-sm-12">
             <img class="" src="{{ course.photo.url }}" alt="Card image cap" width="350" height="200">
-          <h3>{{course.name}} Course</h3>
-          <h4>Description : </h4> <p>{{ course.description }}</p> 
-          Path : <a href="{{ course.path.get_absolute_url }}" class="">{{ course.path.name }}</a>
-          {% if course.depend_on.all %}
+            <a href="{{course.url}}"><h3>{{course.name}} Course</h3></a>  
+            <h4>Description : </h4> <p>{{ course.description }}</p> 
+            Path : <a href="{{ course.path.get_absolute_url }}" class="">{{ course.path.name }}</a>
+            {% if course.depend_on.all %}
             <h3>Depend on :</h3>
             <ul>
                 {% for i_course in course.depend_on.all %}
@@ -21,17 +21,17 @@
                 {% endfor %}
 
             </ul>
-          {% else %}
-          <p>It depends on nothing you can take it now </p>
-          {% endif %}
-          {% if user.is_authenticated %}
+            {% else %}
+            <p>It depends on nothing you can take it now </p>
+            {% endif %}
+            {% if user.is_authenticated %}
             <a href="{% url 'paths:edit_course' course.slug %}" class="btn btn-primary">Edit</a>
-          {% endif %}
-          {% if user == course.creator %}
+            {% endif %}
+            {% if user == course.creator %}
             <a href="{% url 'paths:delete_couse' course.slug %}" class="btn btn-danger">Delete</a>
-          {% endif %}
-          
-          <p>Created By : <a href="{{course.creator.get_absolute_url}}">{{course.creator}}</a></p>
+            {% endif %}
+            
+            <p>Created By : <a href="{{course.creator.get_absolute_url}}">{{course.creator}}</a></p>
 
         </div>
 
