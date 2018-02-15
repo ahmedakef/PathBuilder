@@ -1,3 +1,27 @@
+import os
+''' import json
+
+from django.core.exceptions import ImproperlyConfigured
+
+with open(os.environ.get('MYSITE_CONFIG','/home/ahmed/Dropbox/programing/python/Django/pathbuilder_config.json')) as f:
+ configs = json.loads(f.read())
+
+def get_env_var(setting, configs=configs):
+ try:
+     val = configs[setting]
+     if val == 'True':
+         val = True
+     elif val == 'False':
+         val = False
+     return val
+ except KeyError:
+     error_msg = "ImproperlyConfigured: Set {0} environment      variable".format(setting)
+     raise ImproperlyConfigured(error_msg)
+
+# for example : how to get secret key ?
+#SECRET_KEY = get_env_var("SECRET_KEY")
+ '''
+
 """
 Django settings for PathBuilder project.
 
@@ -10,21 +34,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
-import os
 #from django.urls import reverse
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '15f7ocemi8ex#m5#jg5!&(brkg*hs2-(5+34zhpfy+m*n0pbhe'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -38,7 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django_extensions',
+    #'django_extensions',
     'django.contrib.staticfiles',
 ]
 
