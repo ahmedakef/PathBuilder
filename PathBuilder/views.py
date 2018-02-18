@@ -29,7 +29,11 @@ def ActivateAccount(request):
     if not key:
         messages.warning(request, 'Please follow the link sent in the email.')
     else:
-        author = Author.objects.get(activation_key=key, email_validated=False)
+        try:
+            author = Author.objects.get(activation_key=key, email_validated=False)
+        except:
+            author = None
+
         if author:
             author.user.is_active = True
             author.user.save()

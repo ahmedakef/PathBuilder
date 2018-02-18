@@ -138,6 +138,18 @@ USE_L10N = True
 USE_TZ = True
 
 
+
+# Email
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD =  os.environ.get('EMAIL_PASS')
+EMAIL_PORT = 587
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -146,7 +158,6 @@ STATIC_URL = '/static/'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/paths'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda o: "/paths/author/%s/" % o.username,

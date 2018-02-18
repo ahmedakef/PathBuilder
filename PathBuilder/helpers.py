@@ -18,12 +18,12 @@ def send_activation_key(user):
 
     message = '''\n
                 Please visit the following link to verify your account \n\n{0}://{1}/accounts/register/activate/?key={2}
-                '''.format('http','127.0.0.1:8000', activation_key)            
+                '''.format('https','pathbuilder.herokuapp.com', activation_key)            
 
     error = False
 
     try:
-        send_mail(subject, message, settings.SERVER_EMAIL, [user.email])
+        send_mail(subject, message,'aemed.akef.1@gmail.com' , [user.email])
         user.author.activation_key = activation_key
         user.author.save()
 
