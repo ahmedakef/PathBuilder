@@ -13,10 +13,12 @@ gunicorn = "*"
 whitenoise = "*"
 pillow = "*"
 "psycopg2" = "*"
+djangorestframework = "*"
 
 
 [dev-packages]
 
+pylint = "*"
 
 
 [requires]

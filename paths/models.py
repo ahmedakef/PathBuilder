@@ -69,7 +69,6 @@ class Course(models.Model):
         return self.name
 
 
-from django.utils.text import slugify
 
 class Path(models.Model):
     name = models.CharField(max_length=200, blank=False)

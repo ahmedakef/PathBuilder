@@ -24,6 +24,7 @@ from paths.views.path import PathListView
 
 urlpatterns = [
         path('paths/', include('paths.urls')),
+        path('api/', include('api.urls')),
         path('admin/', admin.site.urls),
         path('', PathListView.as_view()),
 ]
