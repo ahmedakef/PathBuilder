@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     #'django_extensions',
     'rest_framework',
     'api',
+    'rest_framework.authtoken',
     'django.contrib.staticfiles',
 ]
 
@@ -168,3 +169,14 @@ ABSOLUTE_URL_OVERRIDES = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
