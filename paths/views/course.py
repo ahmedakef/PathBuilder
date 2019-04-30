@@ -1,5 +1,6 @@
 from django.views import generic
-from paths.models import Course,Path,Author
+from ..models import Author
+from ..models import Path, Course
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.urls import reverse_lazy
 from paths.forms import CourseForm

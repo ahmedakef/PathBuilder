@@ -2,7 +2,9 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from .models import Course,Path,Author
+from .models import Author
+from .models import Course,Path
+
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 # Register your models here.
