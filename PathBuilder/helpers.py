@@ -28,6 +28,7 @@ def send_activation_key(user):
         user.author.save()
 
     except SMTPException:
+        print("Exception in sending email")
         error = True
 
    

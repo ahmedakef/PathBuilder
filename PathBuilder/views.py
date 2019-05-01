@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from .helpers import send_activation_key
 from django.shortcuts import render,redirect
+from rest_framework.authtoken.models import Token
 
 
 class Register(generic.CreateView):
@@ -16,12 +17,18 @@ class Register(generic.CreateView):
     success_url='/paths'
     
     def form_valid(self,form):
+        
+        response = super().form_valid(form)
+        # create author
+        Author.objects.create(user=self.object)
+        # generate and send activation key
+        send_activation_key(self.object)
+        Token.objects.create(user=self.object)
         # send email verification now
         success_message = 'Account created! Click on the link sent to your email to activate the account'
         messages.add_message(self.request, messages.INFO,success_message )
 
-
-        return super().form_valid(form)
+        return response
 
 
 def ActivateAccount(request):
